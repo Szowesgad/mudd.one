@@ -1,10 +1,316 @@
-# mudd.one - Multimodal Ultrasound Data Distiller (**mudd suite** phase 1)
 
-## Overview
+# mudd.one - Multimodal Ultrasound Data Distiller (phase 1)
 
-### **mudd** is a comprehensive suite for processing, analyzing, measuring, diagnostic sugestion and live exam analysis and reporting for veterinary ultrasound imaging multiframe data. 
+![License](https://img.shields.io/github/license/Szowesgad/mudd.one)
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
+![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.68%2B-green)
+![React](https://img.shields.io/badge/React-18-blue)
+![Status](https://img.shields.io/badge/status-active-success)
 
-    **mudd.one** app is the first phase of the complex **mudd suite** focused on ultrasound video data analysis and preparation training datasets for various ML tools. It supports various video formats (ffmpeg compatibile) and DICOM files (single and multiframe) by pydicom implementation, providing automatic and manual cropping, frame extraction, preprocessing, filtering, and masking capabilities using user-prefered segmentation model.
+> mudd.one is the first phase of the **mudd suite**, a comprehensive toolkit for processing, analyzing, measuring, and providing diagnostic suggestions for veterinary ultrasound imaging data. This phase focuses on video data analysis and preparation of ML training datasets.
+
+## 🎯 Vision
+
+mudd.one aims to streamline the process of ultrasound video data analysis and dataset preparation for machine learning applications. Our goal is to provide veterinary professionals and ML researchers with powerful, user-friendly tools for processing ultrasound imaging data.
+
+## 🚀 Key Features
+
+### Data Input & Processing
+- **Multiple Format Support**
+  - Video: mp4, mov, avi, wmv (ffmpeg compatible)
+  - Medical Imaging: DICOM (single & multiframe)
+  - Raw ultrasound data streams
+
+### Intelligent ROI Detection
+- **Automatic Cropping**
+  - AI-powered ultrasound area detection
+  - Depth scale recognition
+  - Configurable confidence threshold (≥0.9 default)
+- **Manual Adjustments**
+  - Interactive canvas interface
+  - Precision cropping tools
+  - Real-time preview
+
+### Advanced Processing Capabilities
+- **Video Enhancement**
+  - Resolution normalization
+  - Grayscale optimization
+  - Noise reduction
+- **Filtering Suite**
+  - Histogram equalization
+  - Contrast adjustment
+  - Adaptive thresholding
+  - Edge detection (Canny)
+  - Custom filter integration
+
+### Segmentation & Annotation
+- **Flexible Masking Tools**
+  - Model-assisted segmentation
+  - Manual annotation capabilities
+  - Multiple label support
+- **Export Options**
+  - Custom dataset formats
+  - Batch processing
+  - Metadata preservation
+
+## 🛠️ Technology Stack
+
+### Backend Infrastructure
+- **Core**: Python 3.8+
+- **API Framework**: FastAPI
+- **Image Processing**: OpenCV, scikit-image
+- **Medical Imaging**: pydicom
+- **ML Integration**: Custom model endpoints
+
+### Frontend Architecture
+- **Framework**: React 18 with Next.js
+- **State Management**: React Hooks
+- **UI Components**: Custom component library
+- **Canvas Handling**: Custom WebGL renderer
+
+### Development Tools
+- **Version Control**: Git
+- **Documentation**: OpenAPI/Swagger
+- **Testing**: pytest, React Testing Library
+- **Linting**: pylint, ESLint
+
+## 📋 System Requirements
+
+### Minimum Requirements
+- CPU: 4 cores
+- RAM: 8GB
+- Storage: 20GB
+- GPU: Optional
+
+### Recommended Specifications
+- CPU: 8+ cores
+- RAM: 16GB+
+- Storage: 50GB+ SSD
+- GPU: CUDA/Metal compatible
+
+### Software Prerequisites
+- Python 3.8 or higher
+- Node.js 16 or higher
+- FFmpeg
+- Git
+
+## 🔧 Installation
+
+### Quick Start
+```bash
+# Clone repository
+git clone https://github.com/Szowesgad/mudd.one.git
+cd mudd.one
+
+# Install dependencies
+chmod +x install.sh
+./install.sh
+```
+
+### Manual Installation
+```bash
+# Backend setup
+cd server
+python -m venv venv
+source venv/bin/activate  # or `venv\Scripts\activate` on Windows
+pip install -r requirements.txt
+
+# Frontend setup
+cd client
+npm install
+```
+
+### Configuration
+1. Copy environment template:
+```bash
+cp .env.example .env
+```
+
+2. Configure environment variables:
+```env
+NODE_ENV=development
+API_URL=http://localhost:8000
+MODEL_PATH=/path/to/model
+```
+
+## 🚦 Getting Started
+
+### Running the Application
+```bash
+# Start backend server
+python run.py
+
+# In another terminal, start frontend
+cd client
+npm run dev
+```
+
+### Basic Usage Flow
+1. Upload ultrasound video/DICOM
+2. Review automatic cropping
+3. Adjust if necessary
+4. Apply processing filters
+5. Create segmentation masks
+6. Export processed data
+
+## 📊 Project Architecture
+
+```
+mudd.one/
+├── client/                     # Frontend Application
+│   ├── src/
+│   │   ├── components/         # React Components
+│   │   │   ├── ui/            # Base UI Components
+│   │   │   ├── upload/        # Upload Interface
+│   │   │   ├── processing/    # Processing Tools
+│   │   │   └── visualization/ # Results Display
+│   │   ├── pages/             # Next.js Pages
+│   │   └── styles/            # Global Styles
+│   └── public/                # Static Assets
+├── server/                    # Backend Application
+│   ├── core/
+│   │   ├── sm_integration/    # Segmentation Integration
+│   │   ├── memory_bank/       # Memory Management
+│   │   └── processors/        # Image Processing
+│   ├── api/
+│   │   ├── routes/            # API Endpoints
+│   │   └── services/          # Business Logic
+│   └── ml/
+│       ├── models/            # ML Models
+│       └── training/          # Training Utils
+├── docs/                      # Documentation
+└── installation/              # Install Scripts
+```
+
+## 🔌 API Reference
+
+### Video Processing Endpoints
+
+#### Upload Video
+```http
+POST /api/upload
+```
+Accepts video files for processing.
+
+#### Process Video
+```http
+POST /api/process
+```
+Initiates video processing pipeline.
+
+#### Apply Filter
+```http
+POST /api/apply-filter
+```
+Applies specified filter to frames.
+
+#### Create Mask
+```http
+POST /api/create-mask
+```
+Generates segmentation mask.
+
+## 🧪 Development Guide
+
+### Backend Development
+```bash
+cd server
+pip install -r requirements.txt
+uvicorn app:app --reload
+```
+
+### Frontend Development
+```bash
+cd client
+npm install
+npm run dev
+```
+
+### Testing
+```bash
+# Backend tests
+pytest
+
+# Frontend tests
+npm test
+```
+
+## 🤝 Contributing
+
+We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) for details.
+
+### Contribution Flow
+1. Fork repository
+2. Create feature branch (`git checkout -b feature/NewFeature`)
+3. Commit changes (`git commit -m 'Add NewFeature'`)
+4. Push to branch (`git push origin feature/NewFeature`)
+5. Submit Pull Request
+
+### Development Guidelines
+- Follow Python (PEP 8) and JavaScript style guides
+- Add tests for new features
+- Update documentation as needed
+- Maintain compatibility with existing features
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+#### Segmentation Model Loading
+```
+Error: Could not load segmentation model
+Solution: Verify model path and GPU compatibility
+```
+
+#### DICOM Processing
+```
+Error: Cannot read DICOM file
+Solution: Check pydicom installation and file integrity
+```
+
+#### Memory Management
+```
+Error: Out of memory
+Solution: Adjust batch size or reduce video resolution
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.
+
+## 🌟 Credits
+
+Developed and maintained by [hiai.vision®](https://hiai.vision) (the AMLT.ai brand)
+
+## 📞 Support & Contact
+
+### Technical Support
+- GitHub Issues: [Issue Tracker](https://github.com/Szowesgad/mudd.one/issues)
+- Documentation: [Wiki](https://github.com/Szowesgad/mudd.one/wiki)
+
+### Contact Information
+- Email: mudd.project@hiai.vision
+- Website: [hiai.vision](https://hiai.vision)
+
+## 🗺️ Roadmap
+
+### Current Phase
+- Core video processing functionality
+- Basic segmentation tools
+- Dataset export capabilities
+
+### Future Development
+- Advanced ML model integration
+- Real-time processing
+- Cloud deployment options
+- Enhanced reporting features
+
+### Version History
+- v0.1.0 - Initial Release
+  - Basic video processing
+  - Manual cropping
+  - Simple filters    **mudd.one** app is the first phase of the complex **mudd suite** focused on ultrasound video data analysis and preparation training datasets for various ML tools. It supports various video formats (ffmpeg compatibile) and DICOM files (single and multiframe) by pydicom implementation, providing automatic and manual cropping, frame extraction, preprocessing, filtering, and masking capabilities using user-prefered segmentation model.
 
 ## Features
 - Multiple format support (mp4, mov, avi, wmv, DICOM multiframe)
